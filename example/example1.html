@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    
+</head>
+<body>
+    <div> FILE INPUT EXAMPLE</div>
+    <input type="file" id="input" class='inputfile'>
+    <label id ='myPerfectButton' for="input">CUSTOM BUTTON </label>
+
+    <button id='upload'>UPLOAD</button>
+</body>
+
+<style>
+    .inputfile {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+    #myPerfectButton{
+        background: blueviolet;
+    }
+</style>
+
+<script>
+    uploadButton = document.getElementById('upload');
+    uploadButton.onclick = function () {
+            uploadFunction();
+    }
+    
+    function uploadFunction(){
+        var input = document.getElementById('input');
+        var formData = new FormData();
+        formData.append("postContent", input.files[0]);
+        formData.append('publisherUser' ,'SERCH');
+        formData.append('text', ' Example text of post');
+        formData.append('section' , 'self-care');
+
+        let url = 'http://35.231.29.183:3000/posts'
+        jQuery.ajax({
+            url: url,
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST',
+            type: 'POST', // For jQuery < 1.9
+            success: function (data) {
+                alert(data);
+            }
+        });
+    }
+
+
+</script>
+</html>
